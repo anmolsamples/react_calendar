@@ -30,6 +30,16 @@ export default function Day({day}) {
         </header>
         <div className='flex-1 cursor-pointer' onClick={()=>{setDaySelected(day) 
           setShowEventModal(true)}}>
+           savedEvents.map((evtt)=>{
+      if(evtt.day===daySelected.valueOf()){
+        setShowEventModal(false);
+        setConflictModal(true);
+      }
+      else{
+        setConflictModal(false)
+        setShowEventModal(true)
+      }
+     })
          {dayEvents.map((evt, idx) => (
           <div
             key={idx}
