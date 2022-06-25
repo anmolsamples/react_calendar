@@ -1,11 +1,35 @@
 import React, { useContext, useState,useEffect } from 'react'
 import dayjs from 'dayjs'
 import GlobalContext from '../context/GlobalContext';
+
 export default function Day({day}) {
+  
+  
 
   const [dayEvents,setDayEvents]=useState([]);
-  const {setShowEventModal,setDaySelected,savedEvents}=useContext(GlobalContext)
+  
+  const {setShowEventModal,daySelected,setDaySelected,savedEvents,setConflictModal}=useContext(GlobalContext)
 
+  
+
+
+const handleTriggers=()=>{
+  
+  setDaySelected(day);
+ savedEvents.map((eventss)=>{
+  if (eventss.day===daySelected.valueOf()) {
+    setShowEventModal(false);
+   
+      setConflictModal(true)
+   
+  } 
+    else{
+    setShowEventModal(true)
+  }
+  return console.log(" ")
+ })
+
+}
   useEffect(() => {
     const events = savedEvents.filter(
       (evt) =>
@@ -20,6 +44,7 @@ export default function Day({day}) {
           ? "bg-blue-600 text-white rounded-full w-7"
           : "";
       }
+    
   return (
     <div className="border border-gray-200 flex flex-col">
         <header className="flex flex-col items-center">
@@ -28,18 +53,7 @@ export default function Day({day}) {
         </p>
 
         </header>
-        <div className='flex-1 cursor-pointer' onClick={()=>{setDaySelected(day) 
-          setShowEventModal(true)}}>
-           savedEvents.map((evtt)=>{
-      if(evtt.day===daySelected.valueOf()){
-        setShowEventModal(false);
-        setConflictModal(true);
-      }
-      else{
-        setConflictModal(false)
-        setShowEventModal(true)
-      }
-     })
+        <div className='flex-1 cursor-pointer' onClick={handleTriggers}>
          {dayEvents.map((evt, idx) => (
           <div
             key={idx}
